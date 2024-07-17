@@ -10,7 +10,7 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
-        "https://linkedin-gemini-googlesheet-integration-1.onrender.com/api/v1/auth/google",
+        "https://linkedin-gemini-gs-server.onrender.com/api/v1/auth/google",
     },
     function (accessToken, refreshToken, profile, done) {
       // Here, you would normally find or create a user in your database
