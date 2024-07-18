@@ -25,7 +25,7 @@ export const googleAuthCallback = (req, res) => {
         if (err) {
           return res.redirect("/");
         }
-        res.redirect("/");
+        res.redirect("http://localhost:5173/dashboard");
       });
     })(req, res);
   } catch (error) {
