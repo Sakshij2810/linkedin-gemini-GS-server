@@ -26,7 +26,7 @@ export const googleAuthCallback = (req, res) => {
         if (err) {
           return res.redirect("/");
         }
-        // res.redirect("http://localhost:5173/dashboard");
+        res.redirect("http://localhost:5173/dashboard");
         res
           .status(200)
           .json({ currentUser: user, message: "user login successfully" });
