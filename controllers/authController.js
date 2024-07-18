@@ -21,11 +21,15 @@ export const googleAuthCallback = (req, res) => {
       if (err || !user) {
         return res.redirect("/");
       }
+
       req.logIn(user, (err) => {
         if (err) {
           return res.redirect("/");
         }
-        res.redirect("http://localhost:5173/dashboard");
+        // res.redirect("http://localhost:5173/dashboard");
+        res
+          .status(200)
+          .json({ currentUser: user, message: "user login successfully" });
       });
     })(req, res);
   } catch (error) {
