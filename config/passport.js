@@ -13,8 +13,8 @@ passport.use(
         "https://linkedin-gemini-gs-server.onrender.com/api/v1/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, done) {
-      // Here, you would normally find or create a user in your database
-      // For simplicity, we'll just return the profile
+      profile.accessToken = accessToken; // Store access token in profile
+      console.log(accessToken);
       return done(null, profile);
     }
   )
