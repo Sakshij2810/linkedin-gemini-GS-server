@@ -85,3 +85,5 @@ export const logout = (req, res, next) => {
     res.redirect("/");
   });
 };
+
+export const sample = (req, res) => {};
