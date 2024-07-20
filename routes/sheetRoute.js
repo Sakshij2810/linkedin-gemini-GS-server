@@ -17,6 +17,6 @@ import { getSheetData } from "../controllers/sheetController.js";
 
 const router = express.Router();
 
-router.get("/sheets", getSheetData);
+router.post("/data", getSheetData);
 
 export default router;

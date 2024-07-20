@@ -45,7 +45,7 @@ app.use(
 );
 
 // Routes
-app.use("/api/v1", sheetRoute);
+app.use("/api/v1/sheet", sheetRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/gemini", geminiRoute);
 
