@@ -1,7 +1,11 @@
 import passport from "passport";
 
 export const googleAuth = passport.authenticate("google", {
-  scope: ["profile", "email", "https://www.googleapis.com/auth/spreadsheets"],
+  scope: [
+    "profile",
+    "email",
+    "https://www.googleapis.com/auth/spreadsheets.readonly",
+  ],
 });
 
 export const googleAuthCallback = (req, res) => {

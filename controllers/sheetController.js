@@ -5,18 +5,24 @@ export const getSheetData = async (req, res) => {
     const { token, sheetId } = req.body;
 
     if (!token || !sheetId) {
-      return res.status(401).send("Access token and sheetId not found");
+      return res.status(401).send("Access token, sheetId not found");
     }
 
-    const sheets = google.sheets({ version: "v4", auth: token });
-    const spreadsheetId = sheetId;
-    const range = "Sheet1!A1:D10"; // Modify this to your desired range
+    const auth = new google.auth.OAuth2();
+    auth.setCredentials({ access_token: token });
+
+    // Verify the token
+    await auth.getAccessToken().catch((err) => {
+      console.error("Invalid access token: ", err);
+      return res.status(401).send("Invalid access token");
+    });
+
+    const sheets = google.sheets({ version: "v4", auth });
 
     const result = await sheets.spreadsheets.values.get({
-      spreadsheetId,
-      range,
+      spreadsheetId: sheetId,
+      range: "Sheet1!A1:D10",
     });
-    console.log(result);
 
     res.status(200).json(result.data);
   } catch (err) {
