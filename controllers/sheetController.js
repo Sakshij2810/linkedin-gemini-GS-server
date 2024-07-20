@@ -13,7 +13,6 @@ export const getSheetData = async (req, res) => {
 
     // Verify the token
     await auth.getAccessToken().catch((err) => {
-      console.error("Invalid access token: ", err);
       return res.status(401).send("Invalid access token");
     });
 
@@ -26,7 +25,6 @@ export const getSheetData = async (req, res) => {
 
     res.status(200).json(result.data);
   } catch (err) {
-    console.error("Error fetching data from Google Sheets: ", err);
     res.status(500).send("Error fetching data from Google Sheets");
   }
 };

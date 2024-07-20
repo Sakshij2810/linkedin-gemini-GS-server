@@ -21,7 +21,7 @@ async function downloadImage(url) {
 
 export const generateGeminiContent = async (req, res) => {
   try {
-    const { prompt, imageUrls } = req.body;
+    const { title, imageUrls } = req.body;
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -32,7 +32,7 @@ export const generateGeminiContent = async (req, res) => {
       })
     );
 
-    const result = await model.generateContent([prompt, ...imageParts]);
+    const result = await model.generateContent([title, ...imageParts]);
     const response = await result.response;
     const text = await response.text();
 
