@@ -13,8 +13,17 @@ function bufferToGenerativePart(buffer, mimeType) {
   };
 }
 
+// async function downloadImage(url) {
+//   const response = await axios.get(url, { responseType: "arraybuffer" });
+//   const mimeType = response.headers["content-type"];
+//   return { buffer: Buffer.from(response.data), mimeType };
+// }
+
 async function downloadImage(url) {
-  const response = await axios.get(url, { responseType: "arraybuffer" });
+  const formattedUrl = url.replace(/"/g, ""); // Remove any quotes from the URL
+  const response = await axios.get(formattedUrl, {
+    responseType: "arraybuffer",
+  });
   const mimeType = response.headers["content-type"];
   return { buffer: Buffer.from(response.data), mimeType };
 }
@@ -22,7 +31,7 @@ async function downloadImage(url) {
 export const generateGeminiContent = async (req, res) => {
   try {
     const { title, imageUrls } = req.body;
-    console.log(title, imageUrls);
+    // console.log(title, imageUrls);
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -39,7 +48,7 @@ export const generateGeminiContent = async (req, res) => {
 
     res.status(200).json(text);
   } catch (error) {
-    // console.error("Error generating content with Gemini API:", error);
+    console.error("Error generating content with Gemini API:", error);
     res.status(500).json({ error: error.message });
   }
 };

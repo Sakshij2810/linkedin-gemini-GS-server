@@ -4,6 +4,6 @@ import { generateGeminiContent } from "../controllers/geminiController.js";
 
 const router = express.Router();
 
-router.post("/generate-content", generateGeminiContent);
+router.post("/generate_content", generateGeminiContent);
 
 export default router;
