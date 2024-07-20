@@ -22,6 +22,7 @@ async function downloadImage(url) {
 export const generateGeminiContent = async (req, res) => {
   try {
     const { title, imageUrls } = req.body;
+    console.log(title, imageUrls);
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -36,9 +37,9 @@ export const generateGeminiContent = async (req, res) => {
     const response = await result.response;
     const text = await response.text();
 
-    res.status(200).json({ text });
+    res.status(200).json(text);
   } catch (error) {
-    console.error("Error generating content with Gemini API:", error);
+    // console.error("Error generating content with Gemini API:", error);
     res.status(500).json({ error: error.message });
   }
 };
