@@ -28,23 +28,29 @@ export const googleAuth = passport.authenticate("google", {
 // };
 
 export const googleAuthCallback = (req, res) => {
-  passport.authenticate("google", { failureRedirect: "/" }, (err, user) => {
-    if (err || !user) {
-      console.error("Authentication error:", err);
-      return res.redirect("/");
-    }
-
-    req.logIn(user, (err) => {
-      if (err) {
-        console.error("Login error:", err);
+  try {
+    passport.authenticate("google", { failureRedirect: "/" }, (err, user) => {
+      if (err || !user) {
+        console.error("Authentication error:", err);
         return res.redirect("/");
       }
-      const userData = encodeURIComponent(JSON.stringify(user));
-      res.redirect(
-        `https://linkedin-gemini-gs-client.vercel.app/auth/google/callback?user=${userData}`
-      );
-    });
-  })(req, res);
+
+      req.logIn(user, (err) => {
+        if (err) {
+          console.error("Login error:", err);
+          return res.redirect("/");
+        }
+        const userData = encodeURIComponent(JSON.stringify(user));
+        res.redirect(
+          `http://localhost:5173/auth/google/callback?user=${userData}`
+        );
+      });
+    })(req, res);
+
+    res.status(200).json({ message: "success" });
+  } catch (error) {
+    res.status(404).json(error);
+  }
 };
 
 export const logout = (req, res, next) => {
