@@ -21,7 +21,7 @@ export const googleAuthCallback = (req, res) => {
       // Instead of sending a JSON response, redirect to the frontend with a query string containing user data
       const userData = encodeURIComponent(JSON.stringify(user));
       res.redirect(
-        `http://localhost:5173/auth/google/callback?user=${userData}`
+        `https://linkedin-gemini-gs-client.vercel.app/auth/google/callback?user=${userData}`
       );
     });
   })(req, res);
