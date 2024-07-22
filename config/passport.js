@@ -76,7 +76,7 @@ export async function refreshAccessToken(refreshToken) {
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    "https://linkedin-gemini-gs-server.onrender.com/api/v1/auth/google/callback"
+    "http://localhost:5173/api/v1/auth/google/callback"
   );
 
   oauth2Client.setCredentials({ refresh_token: refreshToken });

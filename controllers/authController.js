@@ -28,27 +28,23 @@ export const googleAuth = passport.authenticate("google", {
 // };
 
 export const googleAuthCallback = (req, res) => {
-  try {
-    passport.authenticate("google", { failureRedirect: "/" }, (err, user) => {
-      if (err || !user) {
-        console.error("Authentication error:", err);
+  passport.authenticate("google", { failureRedirect: "/" }, (err, user) => {
+    if (err || !user) {
+      console.error("Authentication error:", err);
+      return res.redirect("/");
+    }
+
+    req.logIn(user, (err) => {
+      if (err) {
+        console.error("Login error:", err);
         return res.redirect("/");
       }
-
-      req.logIn(user, (err) => {
-        if (err) {
-          console.error("Login error:", err);
-          return res.redirect("/");
-        }
-        const userData = encodeURIComponent(JSON.stringify(user));
-        res.redirect(
-          `http://localhost:5173/auth/google/callback?user=${userData}`
-        );
-      });
-    })(req, res);
-  } catch (error) {
-    res.status(404).json(error);
-  }
+      const userData = encodeURIComponent(JSON.stringify(user));
+      res.redirect(
+        `http://localhost:5173/auth/google/callback?user=${userData}`
+      );
+    });
+  })(req, res);
 };
 
 export const logout = (req, res, next) => {
