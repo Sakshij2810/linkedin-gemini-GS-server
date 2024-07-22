@@ -46,8 +46,6 @@ export const googleAuthCallback = (req, res) => {
         );
       });
     })(req, res);
-
-    res.status(200).json({ message: "success" });
   } catch (error) {
     res.status(404).json(error);
   }
