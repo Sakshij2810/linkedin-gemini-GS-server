@@ -2,13 +2,12 @@ import User from "../model/userModel.js";
 
 export const createUser = async (req, res) => {
   try {
-    const { username, email, password, id, accesstoken } = req.body;
-    console.log(username, email, password, id, accesstoken);
+    const { username, email, id, accesstoken } = req.body;
+    console.log(username, email, id, accesstoken);
 
     const user = await User.create({
       username,
       email,
-      password,
       id,
       accesstoken,
     });
