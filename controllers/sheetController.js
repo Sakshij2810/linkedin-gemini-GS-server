@@ -1,4 +1,5 @@
 import { google } from "googleapis";
+import Sheet from "../model/sheetModel.js";
 
 export const getSheetData = async (req, res) => {
   try {
@@ -26,5 +27,22 @@ export const getSheetData = async (req, res) => {
     res.status(200).json(result.data);
   } catch (err) {
     res.status(500).send("Error fetching data from Google Sheets");
+  }
+};
+
+export const getSheetId = async (req, res) => {
+  try {
+    const { user, title, imageUrls, sheetId } = req.body;
+
+    const sheetIdData = await Sheet.create({
+      user,
+      title,
+      imageUrls,
+      sheetId,
+    });
+
+    res.status(200).json(sheetIdData);
+  } catch (error) {
+    res.status(404).json({ error, message: "Sheet Id error" });
   }
 };

@@ -59,6 +59,8 @@ export const geminiResponseToDatabase = async (req, res) => {
   try {
     const { user, title, imageUrls, response } = req.body;
 
+    // console.log(user, title, imageUrls, response);
+
     const addGeminiToDatabase = await Gemini.create({
       user,
       title,
@@ -70,7 +72,7 @@ export const geminiResponseToDatabase = async (req, res) => {
       .status(200)
       .json({ addGeminiToDatabase, message: "Gemini to Database success" });
   } catch (error) {
-    // console.error("Error sending content of Gemini to database:", error);
+    console.error("Error sending content of Gemini to database:", error);
     res.status(500).json({ error: error.message });
   }
 };
