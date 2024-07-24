@@ -1,6 +1,7 @@
 // controllers/geminiController.js
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import axios from "axios";
+import Gemini from "../model/geminiModel.js";
 
 const genAI = new GoogleGenerativeAI(process.env.GEN_AI_API_KEY);
 
@@ -28,10 +29,10 @@ async function downloadImage(url) {
   return { buffer: Buffer.from(response.data), mimeType };
 }
 
+//create gemini response
 export const generateGeminiContent = async (req, res) => {
   try {
     const { title, imageUrls } = req.body;
-    // console.log(title, imageUrls);
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -48,7 +49,28 @@ export const generateGeminiContent = async (req, res) => {
 
     res.status(200).json(text);
   } catch (error) {
-    console.error("Error generating content with Gemini API:", error);
+    // console.error("Error generating content with Gemini API:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+//add gemini response to database
+export const geminiResponseToDatabase = async (req, res) => {
+  try {
+    const { user, title, imageUrls, response } = req.body;
+
+    const addGeminiToDatabase = await Gemini.create({
+      user,
+      title,
+      imageUrls,
+      response,
+    });
+
+    res
+      .status(200)
+      .json({ addGeminiToDatabase, message: "Gemini to Database success" });
+  } catch (error) {
+    // console.error("Error sending content of Gemini to database:", error);
     res.status(500).json({ error: error.message });
   }
 };
