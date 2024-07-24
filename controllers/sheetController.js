@@ -52,10 +52,16 @@ export const getSheetId = async (req, res) => {
 //get sheetid from database
 export const getSheetIdfromDatabase = async (req, res) => {
   try {
-    const sheetId = await Sheet.find();
+    const { email } = req.body;
 
-    res.status(200).json(sheetIdData);
+    const sheetData = await Sheet.findOne({ email });
+
+    if (!sheetData) {
+      return res.status(404).json({ message: "Sheet Id not found" });
+    }
+
+    res.status(200).json(sheetData.sheetId);
   } catch (error) {
-    res.status(404).json({ error, message: "Sheet Id error" });
+    res.status(500).json({ error, message: "Sheet Id fetch error" });
   }
 };
