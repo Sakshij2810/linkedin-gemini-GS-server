@@ -30,16 +30,29 @@ export const getSheetData = async (req, res) => {
   }
 };
 
+//add sheetid to database
 export const getSheetId = async (req, res) => {
   try {
-    const { user, title, imageUrls, sheetId } = req.body;
+    const { user, title, imageUrls, sheetId, email } = req.body;
 
     const sheetIdData = await Sheet.create({
       user,
       title,
       imageUrls,
       sheetId,
+      email,
     });
+
+    res.status(200).json(sheetIdData);
+  } catch (error) {
+    res.status(404).json({ error, message: "Sheet Id error" });
+  }
+};
+
+//get sheetid from database
+export const getSheetIdfromDatabase = async (req, res) => {
+  try {
+    const sheetId = await Sheet.find();
 
     res.status(200).json(sheetIdData);
   } catch (error) {
