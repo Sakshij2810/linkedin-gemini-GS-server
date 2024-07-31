@@ -28,8 +28,45 @@
 //   done(null, obj);
 // });
 
+// import passport from "passport";
+// import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+// import { Strategy as LinkedInStrategy } from "passport-linkedin-oauth2";
+// import dotenv from "dotenv";
+// import { google } from "googleapis";
+
+// dotenv.config({ path: "./config/config.env" });
+
+// passport.use(
+//   new GoogleStrategy(
+//     {
+//       clientID: process.env.GOOGLE_CLIENT_ID,
+//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//       callbackURL:
+//         "https://linkedin-gemini-gs-server.onrender.com/api/v1/auth/google/callback",
+//       scope: ["profile", "email"],
+//     },
+//     async function (accessToken, refreshToken, profile, done) {
+//       try {
+//         // Store user profile along with access and refresh tokens in your database
+//         const user = {
+//           profile,
+//           accessToken,
+//           refreshToken,
+//         };
+
+//         // Store the user in your database or session
+//         return done(null, user);
+//       } catch (error) {
+//         console.error("Error during authentication:", error);
+//         return done(error);
+//       }
+//     }
+//   )
+// );
+
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as LinkedInStrategy } from "passport-linkedin-oauth2";
 import dotenv from "dotenv";
 import { google } from "googleapis";
 
@@ -63,14 +100,6 @@ passport.use(
   )
 );
 
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-
-passport.deserializeUser((obj, done) => {
-  done(null, obj);
-});
-
 // Function to refresh the access token
 export async function refreshAccessToken(refreshToken) {
   const oauth2Client = new google.auth.OAuth2(
@@ -89,3 +118,32 @@ export async function refreshAccessToken(refreshToken) {
     throw error;
   }
 }
+
+// passport.use(
+//   new LinkedInStrategy(
+//     {
+//       clientID: process.env.LINKEDIN_CLIENT_ID,
+//       clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
+//       callbackURL: "http://localhost:5173/api/v1/auth/linkedin/callback",
+//       scope: ["r_liteprofile", "r_emailaddress", "w_member_social"],
+//     },
+//     function (accessToken, refreshToken, profile, done) {
+//       // Store user profile along with access and refresh tokens in your database
+//       const user = {
+//         profile,
+//         accessToken,
+//         refreshToken,
+//       };
+//       // Store the user in your database or session
+//       return done(null, user);
+//     }
+//   )
+// );
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((obj, done) => {
+  done(null, obj);
+});
