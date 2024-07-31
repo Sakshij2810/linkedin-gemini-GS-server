@@ -98,7 +98,8 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
-        "https://linkedin-integration-server.onrender.com/api/v1/auth/google/callback",
+        "https://linkedin-gemini-gs-server.onrender.com/api/v1/auth/google/callback",
+
       scope: ["profile", "email"],
     },
     async function (accessToken, refreshToken, profile, done) {
