@@ -4,7 +4,6 @@ import Sheet from "../model/sheetModel.js";
 export const getSheetData = async (req, res) => {
   try {
     const { token, sheetId } = req.body;
-    console.log(token, sheetId);
 
     if (!token || !sheetId) {
       return res.status(401).send("Access token, sheetId not found");
