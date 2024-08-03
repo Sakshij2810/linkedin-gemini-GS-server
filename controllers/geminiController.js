@@ -14,12 +14,6 @@ function bufferToGenerativePart(buffer, mimeType) {
   };
 }
 
-// async function downloadImage(url) {
-//   const response = await axios.get(url, { responseType: "arraybuffer" });
-//   const mimeType = response.headers["content-type"];
-//   return { buffer: Buffer.from(response.data), mimeType };
-// }
-
 async function downloadImage(url) {
   const formattedUrl = url.replace(/"/g, ""); // Remove any quotes from the URL
   const response = await axios.get(formattedUrl, {

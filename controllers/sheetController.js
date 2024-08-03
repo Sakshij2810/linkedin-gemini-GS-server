@@ -4,6 +4,7 @@ import Sheet from "../model/sheetModel.js";
 export const getSheetData = async (req, res) => {
   try {
     const { token, sheetId } = req.body;
+    console.log(token, sheetId);
 
     if (!token || !sheetId) {
       return res.status(401).send("Access token, sheetId not found");
@@ -23,6 +24,7 @@ export const getSheetData = async (req, res) => {
       spreadsheetId: sheetId,
       range: "Sheet1!A1:D10",
     });
+    // console.log(result);
 
     res.status(200).json(result.data);
   } catch (err) {
@@ -50,18 +52,18 @@ export const getSheetId = async (req, res) => {
 };
 
 //get sheetid from database
-export const getSheetIdfromDatabase = async (req, res) => {
-  try {
-    const { email } = req.body;
+// export const getSheetIdfromDatabase = async (req, res) => {
+//   try {
+//     const { email } = req.body;
 
-    const sheetData = await Sheet.findOne({ email });
+//     const sheetData = await Sheet.findOne({ email });
 
-    if (!sheetData) {
-      return res.status(404).json({ message: "Sheet Id not found" });
-    }
+//     if (!sheetData) {
+//       return res.status(404).json({ message: "Sheet Id not found" });
+//     }
 
-    res.status(200).json(sheetData.sheetId);
-  } catch (error) {
-    res.status(500).json({ error, message: "Sheet Id fetch error" });
-  }
-};
+//     res.status(200).json(sheetData.sheetId);
+//   } catch (error) {
+//     res.status(500).json({ error, message: "Sheet Id fetch error" });
+//   }
+// };

@@ -11,22 +11,16 @@ export const createLinkedInPost = async (req, res) => {
         lifecycleState: "PUBLISHED",
         specificContent: {
           "com.linkedin.ugc.ShareContent": {
-            shareCommentary: {
-              text: description,
-            },
+            shareCommentary: { text: description },
             shareMediaCategory: "IMAGE",
             media: imageUrls.map((url) => ({
               status: "READY",
               originalUrl: url,
-              title: {
-                text: title,
-              },
+              title: { text: title },
             })),
           },
         },
-        visibility: {
-          "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC",
-        },
+        visibility: { "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC" },
       },
       {
         headers: {
@@ -45,5 +39,19 @@ export const createLinkedInPost = async (req, res) => {
     res
       .status(500)
       .json({ message: "Error creating post", error: error.response.data });
+  }
+};
+
+export const getLinkedinUserInfo = async (req, res) => {
+  try {
+    const {} = req.body;
+  } catch (error) {
+    console.error("Error getting user linkedin info:", error);
+    res
+      .status(500)
+      .json({
+        message: "Error getting user linkedin info ",
+        error: error.response.data,
+      });
   }
 };
