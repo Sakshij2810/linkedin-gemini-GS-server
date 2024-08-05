@@ -21,7 +21,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serve static files from the React apps
+// Serve static files from the React app
 const __dirname = path.resolve(); // Resolve the current directory
 app.use(express.static(path.join(__dirname, "client", "dist")));
 
